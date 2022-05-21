@@ -1,0 +1,60 @@
+<script type="text/javascript">
+const graph = {
+    A: ['A','B','C'],
+    B: ['D','E'],
+    C: ['H'],
+    D: [],
+    E: ['F','G'],
+    F: [],
+    G: [],
+    H: ['G']
+}
+
+class Queue {
+    constructor() {
+      this.items = [];
+    }
+
+    enqueue(nodeList) {
+      this.items = this.items.concat(nodeList);
+    }
+
+    dequeue() {
+      return this.items.shift();
+    }
+
+    isEmpty() {
+      return this.items.length === 0;
+    }
+}
+
+var nodeNotVisited = (list,item) => {
+    if (list.indexOf(item) === -1) {
+        return true;
+    }
+    return false;
+};
+
+function bfs(graph,startingNode,targetNode){
+    let queue = new Queue();
+    visitedNodes = [];
+    queue.enqueue(graph[startingNode]);
+  while (!queue.isEmpty()){
+    let node = queue.dequeue();
+    if(nodeNotVisited(visitedNodes,node)){
+        if(node === targetNode){
+            return true;
+        }
+        else{
+            visitedNodes.push(node);
+            queue.enqueue(graph[node]);
+        }
+    }
+  }
+  console.log(visitedNodes)
+  return false;
+}
+
+
+console.log(bfs(graph,'A','Z'));
+</script>
